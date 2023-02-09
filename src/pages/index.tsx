@@ -2,10 +2,15 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
+import { useQuery } from '@apollo/client/react'
+import { GET_ALL_COUNTRIES } from '@/services/queries.graphql'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const { data, loading, error } = useQuery(GET_ALL_COUNTRIES)
+  console.log({ data })
+
   return (
     <>
       <Head>
