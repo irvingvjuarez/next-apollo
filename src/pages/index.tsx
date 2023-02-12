@@ -4,6 +4,7 @@ import styles from '@/styles/Home.module.css'
 import { client } from '@/services/client.apollo'
 import { gql } from "@apollo/client"
 import Link from 'next/link'
+import { GET_ALL_COUNTRIES } from '@/services/queries.graphql'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -13,17 +14,7 @@ type HomeProps = {
 
 export async function getStaticProps() {
   const { data } = await client.query({
-    query: gql`
-      query {
-        countries {
-          name
-          code
-          capital
-          currency
-          emoji
-        }
-      }
-    `
+    query: GET_ALL_COUNTRIES
   })
 
   return {

@@ -2,6 +2,7 @@ import { gql } from "@apollo/client"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
 import { useRouter } from "next/router"
 import { client } from "@/services/client.apollo"
+import { GET_SINGLE_COUNTRY } from "@/services/queries.graphql"
 
 export const getStaticPaths = async () => {
 	const { data } = await client.query({
@@ -34,16 +35,7 @@ export const getStaticProps: GetStaticProps<{ country: Country }> = async ({ par
 	const code = params?.id
 
 	const { data } = await client.query({
-		query: gql`
-			query Country ($code: ID!){
-				country(code: $code) {
-					name
-					capital
-					currency
-					code
-				}
-			}
-		`,
+		query: GET_SINGLE_COUNTRY,
 		variables: { code }
 	})
 
