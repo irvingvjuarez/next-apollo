@@ -3,20 +3,12 @@ import { GetStaticProps, InferGetStaticPropsType } from "next"
 import { useRouter } from "next/router"
 import { client } from "@/services/client.apollo"
 import { GET_SINGLE_COUNTRY } from "@/services/queries.graphql"
+import { GetCountryDocument, Country, GetCountriesDocument } from "@/services/graphql"
+import Head from "next/head"
 
 export const getStaticPaths = async () => {
 	const { data } = await client.query({
-    query: gql`
-      query {
-        countries {
-          name
-          code
-          capital
-          currency
-          emoji
-        }
-      }
-    `
+    query: GetCountriesDocument
   })
 
 	const countries = (data.countries as Country[]).slice(0, 10).map(country => ({
@@ -32,21 +24,27 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps<{ country: Country }> = async ({ params }) => {
-	const code = params?.id
+	const code = params?.id as string
 
 	const { data } = await client.query({
-		query: GET_SINGLE_COUNTRY,
+		query: GetCountryDocument,
 		variables: { code }
 	})
 
 	return {
-		props: { country: data.country }
+		props: { country: data.country as Country }
 	}
 }
 
 const CountryDetail: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({ country }) => {
 	return (
-		<h2>Country: {country?.name}</h2>
+		<>
+			<Head>
+				<title>{country?.name} | Countries</title>
+			</Head>
+
+			<h2>Country: {country?.name}</h2>
+		</>
 	)
 }
 
