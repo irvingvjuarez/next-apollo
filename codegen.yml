@@ -1,0 +1,10 @@
+overwrite: true
+schema: "https://countries.trevorblades.com/"
+documents: "src/**/*.tsx"
+generates:
+  service/graphql.tsx:
+    preset: "client"
+    plugins:
+		 - "typescript"
+		 - "typescript operations"
+		 - "typed-document-node"
