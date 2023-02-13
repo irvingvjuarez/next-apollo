@@ -13,7 +13,9 @@ export const Header = () => {
 							Login
 						</Link>
 				) : (
-					<span>{user.name}</span>
+					<Link href="/profile">
+						<span>{user.name}</span>
+					</Link>
 				)}
 			</nav>
 		</header>

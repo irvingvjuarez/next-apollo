@@ -7,7 +7,7 @@ export const useFetchCurrentUser = () => {
 	const validate = async () => {
 		const token = window.sessionStorage.getItem(TOKEN_NAME)
 		if (!token) {
-			setStatus("success")
+			setStatus("error")
 		} else {
 			const res = await fetch(API_ROOT + "/auth/profile", {
 				headers: {
@@ -17,6 +17,7 @@ export const useFetchCurrentUser = () => {
 			})
 			const data = await res.json()
 			setUser(data)
+			setStatus("success")
 		}
 	}
 

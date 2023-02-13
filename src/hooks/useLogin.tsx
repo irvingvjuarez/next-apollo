@@ -8,22 +8,27 @@ type LoginProps = {
 
 export const useLogin = () => {
 	const login = async ({ email, password }: LoginProps) => {
-		const res = await fetch(API_ROOT + "/auth/login", {
-			headers: {
-				"Content-Type": "application/json",
-				"Accept": "application/json"
-			},
-			method: "POST",
-			body: JSON.stringify({
-				email, password
+		try {
+
+			const res = await fetch(API_ROOT + "/auth/login", {
+				headers: {
+					"Content-Type": "application/json",
+					"Accept": "application/json"
+				},
+				method: "POST",
+				body: JSON.stringify({
+					email, password
+				})
 			})
-		})
-		if (!res.ok) throw new Error()
+			if (!res.ok) throw new Error()
 
-		const data = await res.json()
+			const data = await res.json()
 
-		window.sessionStorage.setItem(TOKEN_NAME, data.access_token)
-		window.location.replace("/")
+			window.sessionStorage.setItem(TOKEN_NAME, data.access_token)
+			window.location.replace("/")
+		} catch(err) {
+			console.log(err)
+		}
 	}
 
 	return {
