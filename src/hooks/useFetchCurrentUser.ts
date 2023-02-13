@@ -1,11 +1,11 @@
-import { API_ROOT } from "@/globals"
+import { API_ROOT, TOKEN_NAME } from "@/globals"
 import { useEffect, useState } from "react"
 
 export const useFetchCurrentUser = () => {
 	const [user, setUser] = useState<User | null>(null)
 	const [status, setStatus] = useState<Status>("idle")
 	const validate = async () => {
-		const token = window.sessionStorage.getItem("_token_")
+		const token = window.sessionStorage.getItem(TOKEN_NAME)
 		if (!token) {
 			setStatus("success")
 		} else {

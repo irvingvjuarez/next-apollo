@@ -7,7 +7,20 @@ const Me = () => {
 				<title>Login</title>
 			</Head>
 
-			<h2>Login page</h2>
+			<section>
+				<form>
+					<div>
+						<label htmlFor="username">User Name</label>
+						<input type="text" id="username" />
+					</div>
+
+					<div>
+						<label htmlFor="password">Password</label>
+						<input type="password" id="password" />
+					</div>
+					<button>Submit</button>
+				</form>
+			</section>
 		</>
 	)
 }
