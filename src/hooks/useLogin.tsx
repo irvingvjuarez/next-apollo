@@ -13,12 +13,13 @@ export const useLogin = () => {
 				"Content-Type": "application/json",
 				"Accept": "application/json"
 			},
+			method: "POST",
 			body: JSON.stringify({
 				email, password
-			}),
-			method: "POST"
+			})
 		})
-		if (!res.ok) return "error"
+		if (!res.ok) throw new Error()
+
 		const data = await res.json()
 
 		window.sessionStorage.setItem(TOKEN_NAME, data.access_token)

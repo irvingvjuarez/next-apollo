@@ -9,7 +9,7 @@ export const useFetchCurrentUser = () => {
 		if (!token) {
 			setStatus("success")
 		} else {
-			const res = await fetch(API_ROOT + "/auth/login", {
+			const res = await fetch(API_ROOT + "/auth/profile", {
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${token}`
