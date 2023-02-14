@@ -1,0 +1,18 @@
+mutation AddCategory($data: CreateProductDto!) {
+  addProduct(data: $data) {
+    creationAt
+    description
+    id
+    images
+    price
+    title
+    updatedAt
+    category {
+      creationAt
+      id
+      image
+      name
+      updatedAt
+    }
+  }
+}

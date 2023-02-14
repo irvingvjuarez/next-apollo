@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "codegen": "graphql-codegen init",
-    "generate": "graphql-codegen --config codegen.yml"
+    "generate": "graphql-codegen --config codegen.yml",
+    "generate:fakeapi": "graphql-codegen --config codegen-fakeapi.yml"
   },
   "dependencies": {
     "@apollo/client": "^3.7.7",
