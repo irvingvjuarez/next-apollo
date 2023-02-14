@@ -1,5 +1,6 @@
 import { useProduct } from "@/hooks/useProduct"
 import { CreateProductDto } from "@/services/graphql-fakeapi"
+import Head from "next/head"
 import { FormEvent, useRef } from "react"
 
 const AddProduct = () => {
@@ -9,56 +10,61 @@ const AddProduct = () => {
 		evt.preventDefault()
 		const formData = new FormData(formRef.current as HTMLFormElement)
 		const data: CreateProductDto = {
-			categoryId: formData.get("categoryId") as unknown as number,
+			categoryId: Number(formData.get("categoryId")),
 			description: formData.get("description") as string,
 			images: [formData.get("image") as string],
-			price: formData.get("price") as unknown as number,
+			price: Number(formData.get("price")),
 			title: formData.get("title") as string
 		}
 
 		const mutation = addProduct(data)
-		console.log({ mutation })
 	}
 
 	return (
-		<section>
-			<form ref={formRef} onSubmit={handleSubmit}>
-				<div>
-					<label htmlFor="title">Title</label>
-					<br />
-					<input type="text" id="title" name="title" required />
-				</div>
+		<>
+			<Head>
+				<title>Add New Product</title>
+			</Head>
 
-				<div>
-					<label htmlFor="price">Price</label>
-					<br />
-					<input type="number" id="price" name="price" required />
-				</div>
+			<section>
+				<form ref={formRef} onSubmit={handleSubmit}>
+					<div>
+						<label htmlFor="title">Title</label>
+						<br />
+						<input type="text" id="title" name="title" required />
+					</div>
 
-				<div>
-					<label htmlFor="description">Description</label>
-					<br />
-					<textarea id="description" name="description" cols={30} rows={10} required></textarea>
-				</div>
+					<div>
+						<label htmlFor="price">Price</label>
+						<br />
+						<input type="number" id="price" name="price" required />
+					</div>
 
-				<div>
-					<label htmlFor="categoryId">Category ID</label>
-					<br />
-					<input type="number" id="categoryId" name="categoryId" required />
-				</div>
+					<div>
+						<label htmlFor="description">Description</label>
+						<br />
+						<textarea id="description" name="description" cols={30} rows={10} required></textarea>
+					</div>
 
-				<div>
-					<label htmlFor="image">Image link</label>
-					<br />
-					<input type="text" id="image" name="image" required />
-				</div>
+					<div>
+						<label htmlFor="categoryId">Category ID</label>
+						<br />
+						<input type="number" id="categoryId" name="categoryId" required />
+					</div>
 
-				<br />
-				<button>
-					Submit
-				</button>
-			</form>
-		</section>
+					<div>
+						<label htmlFor="image">Image link</label>
+						<br />
+						<input type="text" id="image" name="image" required />
+					</div>
+
+					<br />
+					<button>
+						Submit
+					</button>
+				</form>
+			</section>
+		</>
 	)
 }
 
